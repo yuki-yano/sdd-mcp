@@ -14,21 +14,31 @@ Spec-Driven Development MCP Server - An MCP server that provides spec-driven dev
 
 ## Requirements
 
-- **Bun**: >= 1.0.0
+- **Runtime**: Bun >= 1.0.0 (recommended) or Node.js >= 20
 - **OS**: macOS, Linux, or WSL2 (Native Windows is not supported)
 
 ## Installation
 
-### Quick Start with bunx
+### Quick Start with bunx (Recommended)
 
 ```bash
 bunx sdd-mcp@latest
 ```
 
+### Quick Start with npx
+
+```bash
+npx sdd-mcp@latest
+```
+
 ### Local Installation
 
 ```bash
+# With Bun (Recommended)
 bun install sdd-mcp
+
+# With npm
+npm install sdd-mcp
 ```
 
 ## MCP Tools
@@ -56,7 +66,11 @@ This server provides the following spec-driven development tools:
 ### Start MCP Server
 
 ```bash
+# With bunx (Recommended)
 bunx sdd-mcp@latest
+
+# With npx
+npx sdd-mcp@latest
 ```
 
 ### Using MCP Tools
@@ -72,8 +86,10 @@ See individual template files (`commands/*.md`) for details.
 ### Command-line Options
 
 ```bash
-# Show help
+# Show help (bunx recommended)
 bunx sdd-mcp@latest --help
+# or with npx
+npx sdd-mcp@latest --help
 
 # Show version
 bunx sdd-mcp@latest --version
@@ -126,55 +142,6 @@ bun run lint:fix
 
 # Format code
 bun run format
-```
-
-## Project Structure
-
-```
-sdd-mcp/
-├── src/
-│   ├── cli.ts                  # CLI entry point
-│   ├── index.ts                # Library exports
-│   ├── server.ts               # MCP server factory
-│   ├── tool-registry.ts        # Tool registry implementation
-│   ├── resource-registry.ts    # Resource registry implementation
-│   ├── types.ts                # Type definitions
-│   ├── template-parser.ts      # Template frontmatter parser
-│   ├── template-renderer.ts    # Template placeholder renderer
-│   ├── template-loader.ts      # Template file loader
-│   ├── helpers.ts              # Common helper functions
-│   ├── mcp-tools-types.ts      # MCP tools type definitions
-│   ├── tools/                  # MCP tool handlers
-│   │   ├── spec-init.ts
-│   │   ├── spec-requirements.ts
-│   │   ├── spec-design.ts
-│   │   ├── spec-tasks.ts
-│   │   ├── spec-impl.ts
-│   │   ├── spec-status.ts
-│   │   ├── steering.ts
-│   │   ├── steering-custom.ts
-│   │   ├── validate-design.ts
-│   │   └── validate-gap.ts
-│   └── *.test.ts               # Unit tests (51 tests)
-├── commands/                   # Template files (migrated)
-│   ├── spec-init.md
-│   ├── spec-requirements.md
-│   ├── spec-design.md
-│   ├── spec-tasks.md
-│   ├── spec-impl.md
-│   ├── spec-status.md
-│   ├── steering.md
-│   ├── steering-custom.md
-│   ├── validate-design.md
-│   └── validate-gap.md
-├── scripts/
-│   └── migrate-templates.ts    # Template migration script
-├── dist/                       # Build output
-├── tsdown.config.ts            # tsdown configuration
-├── vitest.config.ts            # vitest configuration
-├── biome.json                  # Biome configuration
-├── tsconfig.json               # TypeScript configuration
-└── package.json
 ```
 
 ## Architecture
