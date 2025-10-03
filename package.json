@@ -1,7 +1,9 @@
 {
   "name": "sdd-mcp",
   "version": "0.0.1",
-  "description": "Spec-Driven Development MCP Server - A development environment for building MCP servers with Bun, tsdown, vitest, and biome",
+  "description": "Spec-Driven Development MCP Server - An MCP server that provides spec-driven development custom slash commands as MCP tools",
+  "author": "Yuki Yano",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "sdd-mcp": "./dist/cli.js"
@@ -46,7 +48,5 @@
     "vitest",
     "biome",
     "spec-driven-development"
-  ],
-  "author": "",
-  "license": "MIT"
+  ]
 }

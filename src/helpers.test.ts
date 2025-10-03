@@ -16,10 +16,10 @@ describe('addPreconditions', () => {
 
     const result = addPreconditions(prompt, mockMetadata)
 
-    expect(result).toContain('## 実行前の確認事項')
-    expect(result).toContain('テンプレート: test-template')
-    expect(result).toContain('バージョン: 1.2.3')
-    expect(result).toContain('許可ツール: Bash, Read, Write')
+    expect(result).toContain('## Pre-execution Checklist')
+    expect(result).toContain('Template: test-template')
+    expect(result).toContain('Version: 1.2.3')
+    expect(result).toContain('Allowed tools: Bash, Read, Write')
     expect(result).toContain('This is the original prompt content.')
   })
 
@@ -29,7 +29,7 @@ describe('addPreconditions', () => {
     const result = addPreconditions(prompt, mockMetadata)
 
     const originalContentIndex = result.indexOf('Original content here.')
-    const preconditionIndex = result.indexOf('## 実行前の確認事項')
+    const preconditionIndex = result.indexOf('## Pre-execution Checklist')
 
     expect(preconditionIndex).toBeLessThan(originalContentIndex)
   })

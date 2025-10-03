@@ -48,10 +48,10 @@ Project: {{project_description}}`
 
     const result = await handleSpecInit(input, TEST_TEMPLATE_DIR)
 
-    expect(result.content).toContain('## 実行前の確認事項')
-    expect(result.content).toContain('テンプレート: spec-init')
-    expect(result.content).toContain('バージョン: 1.0.0')
-    expect(result.content).toContain('許可ツール: Bash, Read, Write')
+    expect(result.content).toContain('## Pre-execution Checklist')
+    expect(result.content).toContain('Template: spec-init')
+    expect(result.content).toContain('Version: 1.0.0')
+    expect(result.content).toContain('Allowed tools: Bash, Read, Write')
   })
 
   it('必須パラメータが欠落している場合エラーをスローする', async () => {

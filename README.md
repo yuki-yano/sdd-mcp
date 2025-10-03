@@ -1,16 +1,16 @@
 # sdd-mcp
 
-Spec-Driven Development MCP Server - Spec駆動開発のカスタムスラッシュコマンドをMCPツールとして提供するサーバー
+Spec-Driven Development MCP Server - An MCP server that provides spec-driven development custom slash commands as MCP tools
 
 ## Features
 
-- **Specification Management**: 仕様の初期化から要件定義、設計、タスク分解まで一貫したワークフロー
-- **TDD Implementation Support**: テストファースト開発による品質の高い実装サポート
-- **Design Validation**: インタラクティブな設計レビューと品質チェック
-- **Progress Tracking**: 仕様のステータス確認と実装ギャップの可視化
-- **Steering Documents**: プロジェクト全体の方向性を管理するステアリングドキュメント
-- **MCP Tools**: Claude Code等のMCPクライアントから利用可能な10個の開発支援ツール
-- **Template Engine**: フロントマター対応のテンプレートエンジンによる柔軟なプロンプト生成
+- **Specification Management**: Consistent workflow from spec initialization to requirements definition, design, and task breakdown
+- **TDD Implementation Support**: High-quality implementation support with test-first development
+- **Design Validation**: Interactive design review and quality checks
+- **Progress Tracking**: Spec status monitoring and implementation gap visualization
+- **Steering Documents**: Manage project-wide direction with steering documents
+- **MCP Tools**: 10 development support tools available from MCP clients like Claude Code
+- **Template Engine**: Flexible prompt generation with frontmatter-enabled template engine
 
 ## Requirements
 
@@ -33,23 +33,23 @@ bun install sdd-mcp
 
 ## MCP Tools
 
-このサーバーは以下のSpec駆動開発ツールを提供します：
+This server provides the following spec-driven development tools:
 
 ### Specification Management
-- **spec-init**: 新しい仕様を初期化（プロジェクト説明から開始）
-- **spec-requirements**: 要件定義を生成
-- **spec-design**: 設計ドキュメントを生成
-- **spec-tasks**: タスク分解を実行
-- **spec-impl**: TDD方式で実装を実行
-- **spec-status**: 仕様のステータスを確認
+- **spec-init**: Initialize a new specification (starting from project description)
+- **spec-requirements**: Generate requirements definition
+- **spec-design**: Generate design document
+- **spec-tasks**: Execute task breakdown
+- **spec-impl**: Execute implementation with TDD approach
+- **spec-status**: Check specification status
 
 ### Steering Documents
-- **steering**: ステアリングドキュメントを更新
-- **steering-custom**: カスタムステアリングドキュメントを作成
+- **steering**: Update steering documents
+- **steering-custom**: Create custom steering documents
 
 ### Validation
-- **validate-design**: 設計品質をレビュー
-- **validate-gap**: 実装ギャップを分析
+- **validate-design**: Review design quality
+- **validate-gap**: Analyze implementation gap
 
 ## Usage
 
@@ -61,13 +61,13 @@ bunx sdd-mcp
 
 ### Using MCP Tools
 
-MCPクライアントから上記のツールを呼び出すことができます。各ツールは：
+You can invoke the above tools from MCP clients. Each tool:
 
-1. テンプレートファイルを読み込み
-2. パラメータを展開してプロンプトを生成
-3. メタデータ（template_id, version, allowed_tools, parameters）と共に返却
+1. Loads template files
+2. Expands parameters to generate prompts
+3. Returns with metadata (template_id, version, allowed_tools, parameters)
 
-詳細は各テンプレートファイル（`commands/*.md`）を参照してください。
+See individual template files (`commands/*.md`) for details.
 
 ### Command-line Options
 
@@ -221,16 +221,20 @@ This project follows functional programming principles:
 
 ### Template Migration
 
-テンプレートファイルの位置引数プレースホルダ（`$ARGUMENTS`, `$1`, `$2`）を名前付きプレースホルダ（`{{project_description}}`, `{{feature_name}}`）に変換するには：
+To convert positional argument placeholders (`$ARGUMENTS`, `$1`, `$2`) to named placeholders (`{{project_description}}`, `{{feature_name}}`) in template files:
 
 ```bash
 bun run migrate:templates
 ```
 
-このスクリプトは：
-1. 位置引数を名前付きプレースホルダに変換
-2. frontmatterに`version`フィールドを追加（未指定の場合）
-3. 全10個のテンプレートファイルを一括処理
+This script will:
+1. Convert positional arguments to named placeholders
+2. Add `version` field to frontmatter (if not specified)
+3. Process all 10 template files in batch
+
+## Related Projects
+
+- [cc-sdd](https://github.com/gotalab/cc-sdd) - Reference implementation for Claude Code slash commands
 
 ## License
 
