@@ -240,24 +240,6 @@ bun run lint:fix
 bun run format
 ```
 
-## Architecture
-
-### Functional Programming Principles
-
-This project follows functional programming principles:
-
-- **No classes in application code**: Pure functions and higher-order functions
-- **Immutable data structures**: State is never mutated
-- **Side effects isolation**: Pure functions and effect functions are clearly separated
-- **MCP SDK exception**: @modelcontextprotocol/sdk uses classes, but wrapped in thin functional layers
-
-### MCP Server Components
-
-1. **Server Instance Factory**: Creates MCP server instances
-2. **Tool Registry**: Manages tool definitions and handlers
-3. **Resource Registry**: Manages resource definitions and providers
-4. **STDIO Transport**: Standard input/output communication layer
-
 ## OS Compatibility
 
 | OS | Support |
@@ -266,21 +248,6 @@ This project follows functional programming principles:
 | Linux | Supported |
 | WSL2 (Windows) | Supported |
 | Native Windows | Not supported |
-
-## Development Scripts
-
-| Script | Description |
-|---|---|
-| `bun run dev` | Start development server with hot reload |
-| `bun run build` | Build for production |
-| `bun run start` | Start built server |
-| `bun test` | Run tests (51 tests, 96 assertions) |
-| `bun run test:watch` | Run tests in watch mode |
-| `bun run test:coverage` | Run tests with coverage report |
-| `bun run lint` | Run linter |
-| `bun run lint:fix` | Fix linter errors |
-| `bun run format` | Format code |
-| `bun run migrate:templates` | Migrate template files (legacy → named placeholders) |
 
 ### Template Migration
 
