@@ -83,6 +83,102 @@ You can invoke the above tools from MCP clients. Each tool:
 
 See individual template files (`commands/*.md`) for details.
 
+### Workflow Example
+
+Here's a complete workflow for developing a new feature with spec-driven development:
+
+#### 1. Optional: Create Steering Documents (First Time)
+
+```
+Use MCP tool: steering
+```
+
+This creates project-wide context documents (product.md, tech.md, structure.md) in `.kiro/steering/`.
+
+#### 2. Initialize Specification
+
+```
+Use MCP tool: spec-init
+Parameters: "Implement user authentication with JWT tokens and refresh token rotation"
+```
+
+This creates:
+- `.kiro/specs/user-authentication/spec.json` (metadata)
+- `.kiro/specs/user-authentication/requirements.md` (template)
+
+#### 3. Generate Requirements
+
+```
+Use MCP tool: spec-requirements
+Parameters: user-authentication
+```
+
+AI analyzes the project and generates comprehensive requirements in `requirements.md`.
+
+**Human Review Required**: Review and approve the requirements.
+
+#### 4. Generate Design
+
+```
+Use MCP tool: spec-design
+Parameters: user-authentication
+```
+
+AI creates technical design document in `design.md` based on approved requirements.
+
+**Human Review Required**: Review and approve the design.
+
+**Quick tip**: Use `spec-design user-authentication -y` to auto-approve requirements and skip the interactive prompt.
+
+#### 5. Generate Implementation Tasks
+
+```
+Use MCP tool: spec-tasks
+Parameters: user-authentication
+```
+
+AI breaks down the design into concrete implementation tasks in `tasks.md`.
+
+**Human Review Required**: Review and approve the tasks.
+
+**Quick tip**: Use `spec-tasks user-authentication -y` to auto-approve previous phases.
+
+#### 6. Execute Implementation with TDD
+
+```
+Use MCP tool: spec-impl
+Parameters: user-authentication
+```
+
+AI implements the feature following Test-Driven Development methodology.
+
+**Optional**: Specify task numbers: `spec-impl user-authentication 1,2,3` to implement specific tasks.
+
+#### 7. Check Status
+
+```
+Use MCP tool: spec-status
+Parameters: user-authentication
+```
+
+View current phase, approval status, and implementation progress.
+
+#### Optional: Validation Tools
+
+```
+Use MCP tool: validate-design
+Parameters: user-authentication
+```
+
+Interactive design quality review with recommendations.
+
+```
+Use MCP tool: validate-gap
+Parameters: user-authentication
+```
+
+Analyze gaps between requirements and existing codebase.
+
 ### Command-line Options
 
 ```bash
