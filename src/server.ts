@@ -1,5 +1,6 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { registerTools } from './register-tools.js'
 import type { ServerConfig, ServerInstance } from './types.js'
 
 /**
@@ -22,6 +23,11 @@ export const createServer = (config: ServerConfig): ServerInstance => {
       },
     },
   )
+
+  // ツールを登録
+  if (config.capabilities.tools) {
+    registerTools(sdkServer)
+  }
 
   let running = false
 
