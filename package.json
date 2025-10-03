@@ -1,6 +1,6 @@
 {
   "name": "sdd-mcp",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Spec-Driven Development MCP Server - A development environment for building MCP servers with Bun, tsdown, vitest, and biome",
   "type": "module",
   "bin": {

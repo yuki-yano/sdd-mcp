@@ -4,13 +4,13 @@ Spec-Driven Development MCP Server - Spec駆動開発のカスタムスラッシ
 
 ## Features
 
-- 🚀 **Bun Runtime**: Fast startup and package management
-- ⚡ **tsdown**: High-speed TypeScript build with Rolldown
-- 🧪 **vitest**: Fast and modern test runner with TDD approach
-- 🎨 **Biome**: Fast linter and formatter
-- 📦 **Functional Programming**: Class-free, pure function-based architecture
-- 🔧 **MCP Protocol**: Built on Model Context Protocol standard
-- 📝 **Template-based Tools**: 10 spec-driven development tools powered by template engine
+- **Specification Management**: 仕様の初期化から要件定義、設計、タスク分解まで一貫したワークフロー
+- **TDD Implementation Support**: テストファースト開発による品質の高い実装サポート
+- **Design Validation**: インタラクティブな設計レビューと品質チェック
+- **Progress Tracking**: 仕様のステータス確認と実装ギャップの可視化
+- **Steering Documents**: プロジェクト全体の方向性を管理するステアリングドキュメント
+- **MCP Tools**: Claude Code等のMCPクライアントから利用可能な10個の開発支援ツール
+- **Template Engine**: フロントマター対応のテンプレートエンジンによる柔軟なプロンプト生成
 
 ## Requirements
 
@@ -199,10 +199,10 @@ This project follows functional programming principles:
 
 | OS | Support |
 |---|---|
-| macOS | ✅ Supported |
-| Linux | ✅ Supported |
-| WSL2 (Windows) | ✅ Supported |
-| Native Windows | ❌ Not supported |
+| macOS | Supported |
+| Linux | Supported |
+| WSL2 (Windows) | Supported |
+| Native Windows | Not supported |
 
 ## Development Scripts
 
@@ -235,7 +235,3 @@ bun run migrate:templates
 ## License
 
 MIT
-
-## Author
-
-Your Name
