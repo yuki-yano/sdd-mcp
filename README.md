@@ -22,7 +22,7 @@ Spec-Driven Development MCP Server - An MCP server that provides spec-driven dev
 ### Quick Start with bunx
 
 ```bash
-bunx sdd-mcp
+bunx sdd-mcp@latest
 ```
 
 ### Local Installation
@@ -56,7 +56,7 @@ This server provides the following spec-driven development tools:
 ### Start MCP Server
 
 ```bash
-bunx sdd-mcp
+bunx sdd-mcp@latest
 ```
 
 ### Using MCP Tools
@@ -73,13 +73,13 @@ See individual template files (`commands/*.md`) for details.
 
 ```bash
 # Show help
-bunx sdd-mcp --help
+bunx sdd-mcp@latest --help
 
 # Show version
-bunx sdd-mcp --version
+bunx sdd-mcp@latest --version
 
 # Enable debug mode
-bunx sdd-mcp --debug
+bunx sdd-mcp@latest --debug
 ```
 
 ## Development
