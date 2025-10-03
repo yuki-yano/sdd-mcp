@@ -1,8 +1,9 @@
 ---
-description: Create comprehensive technical design for a specification  
+description: Create comprehensive technical design for a specification
 allowed-tools: Bash, Glob, Grep, LS, Read, Write, Edit, MultiEdit, Update, WebSearch, WebFetch
 argument-hint: <feature-name> [-y]
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Technical Design

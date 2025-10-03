@@ -3,6 +3,7 @@ description: Initialize a new specification with detailed project description an
 allowed-tools: Bash, Read, Write, Glob
 argument-hint: <project-description>
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Spec Initialization

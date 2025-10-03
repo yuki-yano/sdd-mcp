@@ -3,6 +3,7 @@ description: Execute spec tasks using TDD methodology
 allowed-tools: Bash, Read, Write, Edit, MultiEdit, Grep, Glob, LS, WebFetch, WebSearch
 argument-hint: <feature-name> [task-numbers]
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Execute Spec Tasks with TDD

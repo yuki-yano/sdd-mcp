@@ -3,6 +3,7 @@ description: Interactive technical design quality review and validation
 allowed-tools: Bash, Glob, Grep, Read, Task, WebFetch, WebSearch
 argument-hint: <feature-name>
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Technical Design Validation

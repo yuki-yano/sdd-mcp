@@ -2,6 +2,7 @@
 description: Create or update Kiro steering documents intelligently based on project state
 allowed-tools: Bash, Read, Write, Edit, MultiEdit, Glob, Grep, LS
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Kiro Steering Management

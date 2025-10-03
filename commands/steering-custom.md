@@ -2,6 +2,7 @@
 description: Create custom Kiro steering documents for specialized project contexts
 allowed-tools: Bash, Read, Write, Edit, MultiEdit, Glob, Grep, LS
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Kiro Custom Steering Creation

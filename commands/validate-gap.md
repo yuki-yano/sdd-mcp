@@ -3,6 +3,7 @@ description: Analyze implementation gap between requirements and existing codeba
 allowed-tools: Bash, Glob, Grep, Read, Task
 argument-hint: <feature-name>
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Implementation Gap Validation

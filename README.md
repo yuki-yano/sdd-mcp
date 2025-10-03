@@ -199,10 +199,15 @@ This script will:
 2. Add `version` field to frontmatter (if not specified)
 3. Process all 10 template files in batch
 
-## Related Projects
+## Acknowledgments
 
-- [cc-sdd](https://github.com/gotalab/cc-sdd) - Reference implementation for Claude Code slash commands
+This project is based on [cc-sdd](https://github.com/gotalab/cc-sdd) by Gota Lab.
+The command templates (`commands/*.md`) are adapted from cc-sdd under the MIT License.
 
 ## License
 
-MIT
+MIT - See [LICENSE](LICENSE) for details
+
+### Third-Party Licenses
+
+- cc-sdd: MIT License - Copyright (c) 2024 Gota Lab

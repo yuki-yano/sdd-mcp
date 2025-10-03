@@ -3,6 +3,7 @@ description: Show specification status and progress
 allowed-tools: Bash, Read, Glob, Write, Edit, MultiEdit, Update
 argument-hint: <feature-name>
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Specification Status

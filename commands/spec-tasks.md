@@ -3,6 +3,7 @@ description: Generate implementation tasks for a specification
 allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep
 argument-hint: <feature-name> [-y]
 version: 1.0.0
+source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Implementation Tasks
