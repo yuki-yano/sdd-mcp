@@ -9,17 +9,17 @@ const PROMPT_SIZE_LIMIT = 50000 // 50KB
  * @returns 前提条件が挿入されたプロンプト
  */
 export const addPreconditions = (prompt: string, metadata: TemplateMetadata): string => {
-  const preconditions = `## 実行前の確認事項
+  const preconditions = `## Pre-execution Checklist
 
-**このプロンプトについて**:
-- テンプレート: ${metadata.id}
-- バージョン: ${metadata.version}
-- 許可ツール: ${metadata.allowedTools.join(', ')}
+**About this prompt**:
+- Template: ${metadata.id}
+- Version: ${metadata.version}
+- Allowed tools: ${metadata.allowedTools.join(', ')}
 
-**前提条件**:
-- このプロンプトは上記の許可ツールのみを使用して実行してください
-- 指示に従って段階的に作業を進めてください
-- エラーが発生した場合は、明確なエラーメッセージと共に報告してください
+**Prerequisites**:
+- Execute this prompt using only the allowed tools listed above
+- Follow the instructions step by step
+- Report any errors with clear error messages
 
 ---
 

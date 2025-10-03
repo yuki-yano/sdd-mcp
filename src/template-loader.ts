@@ -18,7 +18,7 @@ export type LoadedTemplate = {
 /**
  * テンプレートファイルを読み込んでパースする
  * @param templateId テンプレートID（ファイル名から.mdを除いたもの）
- * @param templateDir テンプレートディレクトリのパス（デフォルト: references/commands/kiro）
+ * @param templateDir テンプレートディレクトリのパス（デフォルト: commands）
  * @returns パース済みテンプレート
  * @throws {Error} ファイルが存在しない、または読み込み/パースに失敗した場合
  */

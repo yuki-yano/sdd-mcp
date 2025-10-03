@@ -7,7 +7,8 @@
     "sdd-mcp": "./dist/cli.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "commands"
   ],
   "engines": {
     "bun": ">=1.0.0"
