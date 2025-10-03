@@ -71,9 +71,7 @@ describe('createResourceRegistry', () => {
   })
 
   it('should throw error when getting unregistered resource', async () => {
-    await expect(registry.get('file:///nonexistent.txt')).rejects.toThrow(
-      'Resource not found: file:///nonexistent.txt',
-    )
+    await expect(registry.get('file:///nonexistent.txt')).rejects.toThrow('Resource not found: file:///nonexistent.txt')
   })
 
   it('should prevent duplicate resource registration', () => {

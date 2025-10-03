@@ -38,10 +38,7 @@ export type ToolHandler<TInput = unknown, TOutput = unknown> = (input: TInput) =
  * Tool registry interface
  */
 export type ToolRegistry = {
-  register: <TInput, TOutput>(
-    definition: ToolDefinition,
-    handler: ToolHandler<TInput, TOutput>,
-  ) => void
+  register: <TInput, TOutput>(definition: ToolDefinition, handler: ToolHandler<TInput, TOutput>) => void
   list: () => readonly ToolDefinition[]
   execute: <TInput, TOutput>(name: string, input: TInput) => Promise<TOutput>
 }

@@ -1,15 +1,16 @@
 # sdd-mcp
 
-Spec-Driven Development MCP Server - A modern development environment for building MCP servers with Bun, tsdown, vitest, and biome.
+Spec-Driven Development MCP Server - Spec駆動開発のカスタムスラッシュコマンドをMCPツールとして提供するサーバー
 
 ## Features
 
 - 🚀 **Bun Runtime**: Fast startup and package management
 - ⚡ **tsdown**: High-speed TypeScript build with Rolldown
-- 🧪 **vitest**: Fast and modern test runner
+- 🧪 **vitest**: Fast and modern test runner with TDD approach
 - 🎨 **Biome**: Fast linter and formatter
 - 📦 **Functional Programming**: Class-free, pure function-based architecture
 - 🔧 **MCP Protocol**: Built on Model Context Protocol standard
+- 📝 **Template-based Tools**: 10 spec-driven development tools powered by template engine
 
 ## Requirements
 
@@ -30,6 +31,26 @@ bunx sdd-mcp
 bun install sdd-mcp
 ```
 
+## MCP Tools
+
+このサーバーは以下のSpec駆動開発ツールを提供します：
+
+### Specification Management
+- **spec-init**: 新しい仕様を初期化（プロジェクト説明から開始）
+- **spec-requirements**: 要件定義を生成
+- **spec-design**: 設計ドキュメントを生成
+- **spec-tasks**: タスク分解を実行
+- **spec-impl**: TDD方式で実装を実行
+- **spec-status**: 仕様のステータスを確認
+
+### Steering Documents
+- **steering**: ステアリングドキュメントを更新
+- **steering-custom**: カスタムステアリングドキュメントを作成
+
+### Validation
+- **validate-design**: 設計品質をレビュー
+- **validate-gap**: 実装ギャップを分析
+
 ## Usage
 
 ### Start MCP Server
@@ -37,6 +58,16 @@ bun install sdd-mcp
 ```bash
 bunx sdd-mcp
 ```
+
+### Using MCP Tools
+
+MCPクライアントから上記のツールを呼び出すことができます。各ツールは：
+
+1. テンプレートファイルを読み込み
+2. パラメータを展開してプロンプトを生成
+3. メタデータ（template_id, version, allowed_tools, parameters）と共に返却
+
+詳細は各テンプレートファイル（`commands/*.md`）を参照してください。
 
 ### Command-line Options
 
@@ -102,18 +133,47 @@ bun run format
 ```
 sdd-mcp/
 ├── src/
-│   ├── cli.ts              # CLI entry point
-│   ├── index.ts            # Library exports
-│   ├── server.ts           # MCP server factory
-│   ├── tool-registry.ts    # Tool registry implementation
-│   ├── resource-registry.ts # Resource registry implementation
-│   ├── types.ts            # Type definitions
-│   └── *.test.ts           # Unit tests
-├── dist/                   # Build output
-├── tsdown.config.ts        # tsdown configuration
-├── vitest.config.ts        # vitest configuration
-├── biome.json              # Biome configuration
-├── tsconfig.json           # TypeScript configuration
+│   ├── cli.ts                  # CLI entry point
+│   ├── index.ts                # Library exports
+│   ├── server.ts               # MCP server factory
+│   ├── tool-registry.ts        # Tool registry implementation
+│   ├── resource-registry.ts    # Resource registry implementation
+│   ├── types.ts                # Type definitions
+│   ├── template-parser.ts      # Template frontmatter parser
+│   ├── template-renderer.ts    # Template placeholder renderer
+│   ├── template-loader.ts      # Template file loader
+│   ├── helpers.ts              # Common helper functions
+│   ├── mcp-tools-types.ts      # MCP tools type definitions
+│   ├── tools/                  # MCP tool handlers
+│   │   ├── spec-init.ts
+│   │   ├── spec-requirements.ts
+│   │   ├── spec-design.ts
+│   │   ├── spec-tasks.ts
+│   │   ├── spec-impl.ts
+│   │   ├── spec-status.ts
+│   │   ├── steering.ts
+│   │   ├── steering-custom.ts
+│   │   ├── validate-design.ts
+│   │   └── validate-gap.ts
+│   └── *.test.ts               # Unit tests (51 tests)
+├── commands/                   # Template files (migrated)
+│   ├── spec-init.md
+│   ├── spec-requirements.md
+│   ├── spec-design.md
+│   ├── spec-tasks.md
+│   ├── spec-impl.md
+│   ├── spec-status.md
+│   ├── steering.md
+│   ├── steering-custom.md
+│   ├── validate-design.md
+│   └── validate-gap.md
+├── scripts/
+│   └── migrate-templates.ts    # Template migration script
+├── dist/                       # Build output
+├── tsdown.config.ts            # tsdown configuration
+├── vitest.config.ts            # vitest configuration
+├── biome.json                  # Biome configuration
+├── tsconfig.json               # TypeScript configuration
 └── package.json
 ```
 
@@ -151,12 +211,26 @@ This project follows functional programming principles:
 | `bun run dev` | Start development server with hot reload |
 | `bun run build` | Build for production |
 | `bun run start` | Start built server |
-| `bun test` | Run tests |
+| `bun test` | Run tests (51 tests, 96 assertions) |
 | `bun run test:watch` | Run tests in watch mode |
 | `bun run test:coverage` | Run tests with coverage report |
 | `bun run lint` | Run linter |
 | `bun run lint:fix` | Fix linter errors |
 | `bun run format` | Format code |
+| `bun run migrate:templates` | Migrate template files (legacy → named placeholders) |
+
+### Template Migration
+
+テンプレートファイルの位置引数プレースホルダ（`$ARGUMENTS`, `$1`, `$2`）を名前付きプレースホルダ（`{{project_description}}`, `{{feature_name}}`）に変換するには：
+
+```bash
+bun run migrate:templates
+```
+
+このスクリプトは：
+1. 位置引数を名前付きプレースホルダに変換
+2. frontmatterに`version`フィールドを追加（未指定の場合）
+3. 全10個のテンプレートファイルを一括処理
 
 ## License
 

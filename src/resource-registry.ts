@@ -5,10 +5,7 @@ import type { ResourceDefinition, ResourceProvider, ResourceRegistry } from './t
  * Resources are managed in an immutable map structure
  */
 export const createResourceRegistry = (): ResourceRegistry => {
-  const resources = new Map<
-    string,
-    { definition: ResourceDefinition; provider: ResourceProvider }
-  >()
+  const resources = new Map<string, { definition: ResourceDefinition; provider: ResourceProvider }>()
 
   return {
     register: <T>(definition: ResourceDefinition, provider: ResourceProvider<T>) => {

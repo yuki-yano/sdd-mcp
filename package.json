@@ -21,7 +21,8 @@
     "test:coverage": "vitest --coverage",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "migrate:templates": "tsx scripts/migrate-templates.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4"
@@ -32,6 +33,7 @@
     "@vitest/coverage-istanbul": "^2.1.8",
     "concurrently": "^9.1.2",
     "tsdown": "^0.15.6",
+    "tsx": "^4.20.6",
     "typescript": "^5.7.3",
     "vitest": "^2.1.8"
   },

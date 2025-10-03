@@ -8,10 +8,7 @@ export const createToolRegistry = (): ToolRegistry => {
   const tools = new Map<string, { definition: ToolDefinition; handler: ToolHandler }>()
 
   return {
-    register: <TInput, TOutput>(
-      definition: ToolDefinition,
-      handler: ToolHandler<TInput, TOutput>,
-    ) => {
+    register: <TInput, TOutput>(definition: ToolDefinition, handler: ToolHandler<TInput, TOutput>) => {
       if (tools.has(definition.name)) {
         throw new Error(`Tool already registered: ${definition.name}`)
       }
