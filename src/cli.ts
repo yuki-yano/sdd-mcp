@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 import { createServer } from './server.js'
+import packageJson from '../package.json' with { type: 'json' }
 
 /**
  * Parse command-line arguments
@@ -39,8 +40,7 @@ Examples:
  * Display version information
  */
 const showVersion = () => {
-  // Version will be read from package.json in production
-  console.log('sdd-mcp v0.1.0')
+  console.log(`sdd-mcp v${packageJson.version}`)
 }
 
 /**
@@ -79,7 +79,7 @@ const main = async () => {
 
   const server = createServer({
     name: 'sdd-mcp',
-    version: '0.1.0',
+    version: packageJson.version,
     capabilities: {
       tools: true,
       resources: true,
