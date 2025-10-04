@@ -4,33 +4,33 @@ import { loadTemplate } from '../template-loader.js'
 import { renderTemplate } from '../template-renderer.js'
 
 /**
- * spec-init ツールハンドラー
- * @param input プロジェクト説明
- * @param templateDir テンプレートディレクトリ（テスト用）
- * @returns ツール実行結果
+ * Handler for the spec-init tool.
+ * @param input Project description.
+ * @param templateDir Template directory path used for tests.
+ * @returns Tool execution result.
  */
 export const handleSpecInit = async (input: SpecInitInput, templateDir?: string): Promise<ToolResult> => {
-  // 1. パラメータ検証
+  // 1. Validate parameters.
   if (!input.project_description || input.project_description.trim() === '') {
     throw new Error('Missing required parameter: project_description')
   }
 
-  // 2. テンプレート読み込み
+  // 2. Load the template.
   const template = await loadTemplate('spec-init', templateDir)
 
-  // 3. プレースホルダ展開
+  // 3. Expand placeholders.
   const params = {
     project_description: input.project_description,
   }
   const expandedPrompt = renderTemplate(template.body, params)
 
-  // 4. 前提条件の挿入
+  // 4. Insert preconditions.
   const contentWithPreconditions = addPreconditions(expandedPrompt, template.metadata)
 
-  // 5. サイズチェック
+  // 5. Check size constraints.
   const sizeWarning = checkPromptSize(contentWithPreconditions)
 
-  // 6. レスポンス生成
+  // 6. Build the response.
   return {
     content: contentWithPreconditions,
     metadata: {

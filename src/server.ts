@@ -24,7 +24,7 @@ export const createServer = (config: ServerConfig): ServerInstance => {
     },
   )
 
-  // ツールを登録
+  // Register tools.
   if (config.capabilities.tools) {
     registerTools(sdkServer)
   }

@@ -1,13 +1,13 @@
 /**
- * cc-sdd形式のテンプレートをMCP環境に適応させる
+ * Adapt cc-sdd templates for the MCP environment.
  *
- * cc-sddのスラッシュコマンド形式（/kiro:xxx）をMCPツール指示形式に変換し、
- * 位置引数プレースホルダ（$1, $2など）を名前付きプレースホルダに変換します。
- * これにより、cc-sddテンプレートとの互換性を維持しながら、
- * Claude CodeのMCP環境で適切に機能させることができます。
+ * Converts the cc-sdd slash command syntax (/kiro:xxx) into MCP tool instructions
+ * and turns positional placeholders ($1, $2, etc.) into named placeholders.
+ * This keeps compatibility with cc-sdd templates while making them work correctly
+ * within Claude Code's MCP environment.
  */
 
-// 位置引数から名前付きプレースホルダへのマッピング
+// Mapping from positional placeholders to named placeholders.
 const PLACEHOLDER_MAPPINGS: Record<string, Record<string, string>> = {
   'spec-init': {
     $ARGUMENTS: 'project_description',
@@ -41,20 +41,20 @@ const PLACEHOLDER_MAPPINGS: Record<string, Record<string, string>> = {
 }
 
 /**
- * 正規表現特殊文字をエスケープする
+ * Escape special regular expression characters.
  */
 const escapeRegex = (str: string): string => {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 /**
- * 位置引数プレースホルダを名前付きプレースホルダに変換する
+ * Convert positional placeholders into named placeholders.
  */
 const convertPlaceholders = (content: string, mapping: Record<string, string>): string => {
   let result = content
 
   for (const [legacy, named] of Object.entries(mapping)) {
-    // $1の後に数字がある場合は変換しない（$10等）
+    // Do not convert when a digit follows $1 (e.g., $10).
     const escapedLegacy = escapeRegex(legacy)
     const regex = new RegExp(`${escapedLegacy}(?!\\d)`, 'g')
     result = result.replace(regex, `{{${named}}}`)
@@ -64,35 +64,35 @@ const convertPlaceholders = (content: string, mapping: Record<string, string>): 
 }
 
 /**
- * /kiro: プレフィックスをMCPツール指示に変換
+ * Convert the /kiro: prefix into MCP tool instructions.
  *
- * 変換例:
- * - `/kiro:spec-requirements {{feature_name}}` → `spec-requirements ツールを実行: {{feature_name}}`
- * - `/kiro:spec-design <feature-name>` → `spec-design ツールを実行: <feature-name>`
- * - `Run /kiro:spec-tasks` → `spec-tasks ツールを実行`
- * - `$1` → `{{feature_name}}`（templateIdに基づく）
+ * Conversion examples (outputs retain the localized Japanese word for "tool"):
+ * - `/kiro:spec-requirements {{feature_name}}` becomes a `spec-requirements` tool invocation with the same arguments.
+ * - `/kiro:spec-design <feature-name>` becomes a `spec-design` tool invocation with the provided arguments.
+ * - `Run /kiro:spec-tasks` becomes `Run spec-tasks` followed by the localized tool phrase.
+ * - `$1` is replaced with `{{feature_name}}` based on the templateId.
  *
- * @param content テンプレートコンテンツ
- * @param templateId テンプレートID（位置引数変換に使用）
- * @returns MCP環境に適応させたコンテンツ
+ * @param content Template contents.
+ * @param templateId Template ID used for positional placeholder conversion.
+ * @returns Content adapted for the MCP environment.
  */
 export const adaptTemplateForMCP = (content: string, templateId = ''): string => {
   let adapted = content
 
-  // 1. 位置引数プレースホルダを名前付きプレースホルダに変換
+  // 1. Convert positional placeholders into named placeholders.
   const mapping = PLACEHOLDER_MAPPINGS[templateId]
   if (mapping) {
     adapted = convertPlaceholders(adapted, mapping)
   }
 
-  // 2. /kiro:xxx 形式をMCPツール呼び出しに変換
-  // Run `/kiro:xxx` パターンを変換（Runを保持）
+  // 2. Convert /kiro:xxx syntax into MCP tool invocations.
+  // Convert the Run `/kiro:xxx` pattern while keeping the leading Run.
   adapted = adapted.replace(/Run `\/kiro:([a-z-]+)([^`]*)`/g, 'Run $1 ツールを実行$2')
 
-  // `/kiro:xxx` パターンを変換（バッククォートで囲まれている場合）
+  // Convert the `/kiro:xxx` pattern when it is wrapped in backticks.
   adapted = adapted.replace(/`\/kiro:([a-z-]+)([^`]*)`/g, '`$1 ツール$2`')
 
-  // /kiro:xxx パターンを変換（バッククォートなし）
+  // Convert the /kiro:xxx pattern when backticks are not used.
   adapted = adapted.replace(/\/kiro:([a-z-]+)/g, '$1 ツール')
 
   return adapted

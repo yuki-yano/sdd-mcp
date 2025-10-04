@@ -29,7 +29,7 @@ import { handleValidateDesign } from './tools/validate-design.js'
 import { handleValidateGap } from './tools/validate-gap.js'
 
 /**
- * ツール定義一覧
+ * List of tool definitions.
  */
 const TOOL_DEFINITIONS: Tool[] = [
   {
@@ -188,7 +188,7 @@ const TOOL_DEFINITIONS: Tool[] = [
 ]
 
 /**
- * ツールハンドラーマップ
+ * Map of tool handlers.
  */
 const wrapHandler = <T>(
   handler: (input: T, templateDir?: string) => Promise<unknown>,
@@ -210,15 +210,15 @@ const TOOL_HANDLERS: Record<string, (input: unknown) => Promise<unknown>> = {
 }
 
 /**
- * MCPサーバーにツールを登録
+ * Register tools with the MCP server.
  */
 export const registerTools = (server: Server): void => {
-  // ツール一覧を返すハンドラー
+  // Handler that returns the tool list.
   server.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: TOOL_DEFINITIONS,
   }))
 
-  // ツール実行ハンドラー
+  // Handler that executes the requested tool.
   server.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest) => {
     const { name, arguments: args } = request.params
 
@@ -229,7 +229,7 @@ export const registerTools = (server: Server): void => {
 
     try {
       const result = await handler(args ?? {})
-      // ToolResultからcontentを抽出
+      // Extract content from ToolResult.
       const content =
         typeof result === 'object' && result !== null && 'content' in result
           ? (result as { content: string }).content

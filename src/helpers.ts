@@ -3,10 +3,10 @@ import type { TemplateMetadata } from './template-loader.js'
 const PROMPT_SIZE_LIMIT = 50000 // 50KB
 
 /**
- * プロンプトの冒頭に前提条件セクションを挿入する
- * @param prompt 元のプロンプト
- * @param metadata テンプレートメタデータ
- * @returns 前提条件が挿入されたプロンプト
+ * Insert the preconditions section at the beginning of the prompt.
+ * @param prompt Original prompt text.
+ * @param metadata Template metadata.
+ * @returns Prompt with preconditions prepended.
  */
 export const addPreconditions = (prompt: string, metadata: TemplateMetadata): string => {
   const preconditions = `## Pre-execution Checklist
@@ -29,9 +29,9 @@ ${prompt}`
 }
 
 /**
- * プロンプトサイズをチェックし、超過時は警告メッセージを返す
- * @param content プロンプト内容
- * @returns 警告メッセージ（超過時のみ）、undefinedはサイズ上限以内
+ * Check the prompt size and return a warning when it exceeds the limit.
+ * @param content Prompt body.
+ * @returns Warning message when over the limit, otherwise undefined.
  */
 export const checkPromptSize = (content: string): string | undefined => {
   const sizeInBytes = new TextEncoder().encode(content).length

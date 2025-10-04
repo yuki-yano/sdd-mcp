@@ -56,7 +56,7 @@ describe('checkPromptSize', () => {
   })
 
   it('プロンプトサイズが上限を超える場合警告メッセージを返す', () => {
-    // 50KB以上の文字列を生成
+    // Generate a string larger than 50KB.
     const largePrompt = 'a'.repeat(51000)
 
     const result = checkPromptSize(largePrompt)
@@ -75,8 +75,8 @@ describe('checkPromptSize', () => {
   })
 
   it('マルチバイト文字を含む場合もバイト数で計算する', () => {
-    // 日本語文字を大量に含む文字列（1文字=3バイト）
-    const japanesePrompt = 'あ'.repeat(20000) // 約60KB
+    // Create a string with many Japanese characters (1 char = 3 bytes).
+    const japanesePrompt = 'あ'.repeat(20000) // approx 60KB
 
     const result = checkPromptSize(japanesePrompt)
 

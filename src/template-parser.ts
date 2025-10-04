@@ -12,10 +12,10 @@ export type ParsedTemplate = {
 }
 
 /**
- * テンプレートファイルからfrontmatterとマークダウン本文を分離してパースする
- * @param content テンプレートファイルの内容
- * @returns パース済みのfrontmatterとbody
- * @throws {Error} frontmatterが無効な形式の場合
+ * Split a template file into frontmatter and markdown body and parse them.
+ * @param content Raw template file contents.
+ * @returns Parsed frontmatter and body.
+ * @throws {Error} When the frontmatter has an invalid format.
  */
 export const parseFrontmatter = (content: string): ParsedTemplate => {
   const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
@@ -43,7 +43,7 @@ export const parseFrontmatter = (content: string): ParsedTemplate => {
     metadata[key] = value
   }
 
-  // versionフィールドのデフォルト値設定
+  // Set the default value for the version field.
   const description = metadata.description
   if (!description) {
     throw new Error('Missing required frontmatter field: description')

@@ -4,25 +4,25 @@ import { loadTemplate } from '../template-loader.js'
 import { renderTemplate } from '../template-renderer.js'
 
 /**
- * steering ツールハンドラー
- * @param input 空オブジェクト
- * @param templateDir テンプレートディレクトリ（テスト用）
- * @returns ツール実行結果
+ * Handler for the steering tool.
+ * @param input Empty object.
+ * @param templateDir Template directory path used for tests.
+ * @returns Tool execution result.
  */
 export const handleSteering = async (_input: SteeringInput, templateDir?: string): Promise<ToolResult> => {
-  // 1. テンプレート読み込み
+  // 1. Load the template.
   const template = await loadTemplate('steering', templateDir)
 
-  // 2. プレースホルダ展開（パラメータなし）
+  // 2. Expand placeholders (no parameters).
   const expandedPrompt = renderTemplate(template.body, {})
 
-  // 3. 前提条件の挿入
+  // 3. Insert preconditions.
   const contentWithPreconditions = addPreconditions(expandedPrompt, template.metadata)
 
-  // 4. サイズチェック
+  // 4. Check size constraints.
   const sizeWarning = checkPromptSize(contentWithPreconditions)
 
-  // 5. レスポンス生成
+  // 5. Build the response.
   return {
     content: contentWithPreconditions,
     metadata: {

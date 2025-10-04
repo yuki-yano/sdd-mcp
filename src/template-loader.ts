@@ -19,28 +19,28 @@ export type LoadedTemplate = {
 }
 
 /**
- * テンプレートファイルを読み込んでパースする
- * @param templateId テンプレートID（ファイル名から.mdを除いたもの）
- * @param templateDir テンプレートディレクトリのパス（デフォルト: commands）
- * @returns パース済みテンプレート
- * @throws {Error} ファイルが存在しない、または読み込み/パースに失敗した場合
+ * Load and parse a template file.
+ * @param templateId Template ID (file name without .md).
+ * @param templateDir Path to the template directory (defaults to commands).
+ * @returns Parsed template contents.
+ * @throws {Error} When the file is missing or fails to load/parse.
  */
 export const loadTemplate = async (templateId: string, templateDir = 'commands'): Promise<LoadedTemplate> => {
-  // templateDirが絶対パスの場合はそのまま使用、相対パスの場合はパッケージルートからの絶対パスを構築
+  // Use templateDir as-is when it is absolute; otherwise resolve it from the package root.
   let resolvedTemplateDir: string
   if (isAbsolute(templateDir)) {
     resolvedTemplateDir = templateDir
   } else {
-    // bunx実行時にもテンプレートを見つけられるように、パッケージルートからの絶対パスを構築
+    // Resolve an absolute path from the package root so bunx can locate templates.
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = dirname(__filename)
-    const packageRoot = join(__dirname, '..') // dist から一つ上がパッケージルート
+    const packageRoot = join(__dirname, '..') // One level above dist is the package root.
     resolvedTemplateDir = join(packageRoot, templateDir)
   }
 
   const filePath = join(resolvedTemplateDir, `${templateId}.md`)
 
-  // ファイル読み込み
+  // Read the file contents.
   let content: string
   try {
     content = await readFile(filePath, 'utf-8')
@@ -48,7 +48,7 @@ export const loadTemplate = async (templateId: string, templateDir = 'commands')
     throw new Error(`Template not found: ${templateId}`)
   }
 
-  // frontmatterパース
+  // Parse the frontmatter.
   let parsed: ParsedTemplate
   try {
     parsed = parseFrontmatter(content)
@@ -56,7 +56,7 @@ export const loadTemplate = async (templateId: string, templateDir = 'commands')
     throw new Error(`Invalid template frontmatter: ${(error as Error).message}`)
   }
 
-  // メタデータ変換（ハイフン付きキー → キャメルケース）
+  // Convert metadata keys (hyphenated names -> camelCase).
   const metadata: TemplateMetadata = {
     id: templateId,
     version: parsed.metadata.version ?? '1.0.0',

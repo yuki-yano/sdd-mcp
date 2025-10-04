@@ -6,10 +6,10 @@ const TEST_TEMPLATE_DIR = '/tmp/sdd-mcp-test-tools'
 
 describe('handleSpecInit', () => {
   beforeEach(async () => {
-    // テスト用ディレクトリを作成
+    // Create a test directory.
     await mkdir(TEST_TEMPLATE_DIR, { recursive: true })
 
-    // テスト用テンプレートファイルを作成
+    // Create a template file for tests.
     const templateContent = `---
 description: Test spec-init template
 allowed-tools: Bash, Read, Write
@@ -56,7 +56,7 @@ Project: {{project_description}}`
 
   it('必須パラメータが欠落している場合エラーをスローする', async () => {
     const input: Partial<SpecInitInput> = {
-      // project_description が欠けている
+      // project_description is missing.
     }
 
     await expect(handleSpecInit(input as SpecInitInput, TEST_TEMPLATE_DIR)).rejects.toThrow(

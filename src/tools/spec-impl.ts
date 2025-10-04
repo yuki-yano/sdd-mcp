@@ -4,13 +4,13 @@ import { loadTemplate } from '../template-loader.js'
 import { renderTemplate } from '../template-renderer.js'
 
 /**
- * spec-impl ツールハンドラー
- * @param input フィーチャー名とタスク番号配列
- * @param templateDir テンプレートディレクトリ（テスト用）
- * @returns ツール実行結果
+ * Handler for the spec-impl tool.
+ * @param input Feature name and array of task numbers.
+ * @param templateDir Template directory path used for tests.
+ * @returns Tool execution result.
  */
 export const handleSpecImpl = async (input: SpecImplInput, templateDir?: string): Promise<ToolResult> => {
-  // 1. パラメータ検証
+  // 1. Validate parameters.
   if (!input.feature_name || input.feature_name.trim() === '') {
     throw new Error('Missing required parameter: feature_name')
   }
@@ -21,10 +21,10 @@ export const handleSpecImpl = async (input: SpecImplInput, templateDir?: string)
     }
   }
 
-  // 2. テンプレート読み込み
+  // 2. Load the template.
   const template = await loadTemplate('spec-impl', templateDir)
 
-  // 3. プレースホルダ展開
+  // 3. Expand placeholders.
   const params: Record<string, string | string[]> = {
     feature_name: input.feature_name,
   }
@@ -37,13 +37,13 @@ export const handleSpecImpl = async (input: SpecImplInput, templateDir?: string)
 
   const expandedPrompt = renderTemplate(template.body, params)
 
-  // 4. 前提条件の挿入
+  // 4. Insert preconditions.
   const contentWithPreconditions = addPreconditions(expandedPrompt, template.metadata)
 
-  // 5. サイズチェック
+  // 5. Check size constraints.
   const sizeWarning = checkPromptSize(contentWithPreconditions)
 
-  // 6. レスポンス生成
+  // 6. Build the response.
   return {
     content: contentWithPreconditions,
     metadata: {

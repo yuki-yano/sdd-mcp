@@ -6,12 +6,12 @@ const TEST_TEMPLATE_DIR = '/tmp/sdd-mcp-test-templates'
 
 describe('loadTemplate', () => {
   beforeEach(async () => {
-    // テスト用ディレクトリを作成
+    // Create a test directory.
     await mkdir(TEST_TEMPLATE_DIR, { recursive: true })
   })
 
   afterEach(async () => {
-    // テスト後にクリーンアップ
+    // Clean up after each test.
     await rm(TEST_TEMPLATE_DIR, { recursive: true, force: true })
   })
 
@@ -64,7 +64,7 @@ Body`
 
     const result = await loadTemplate('camel-test', TEST_TEMPLATE_DIR)
 
-    // ハイフン付きキーがキャメルケースに変換されていることを確認
+    // Verify that hyphenated keys are converted to camelCase.
     expect(result.metadata.allowedTools).toBeDefined()
     expect(result.metadata.argumentHint).toBeDefined()
   })
