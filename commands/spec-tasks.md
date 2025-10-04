@@ -2,25 +2,23 @@
 description: Generate implementation tasks for a specification
 allowed-tools: Read, Write, Edit, MultiEdit, Glob, Grep
 argument-hint: <feature-name> [-y]
-version: 1.0.0
-source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Implementation Tasks
 
-Generate detailed implementation tasks for feature: **{{feature_name}}**
+Generate detailed implementation tasks for feature: **$1**
 
 ## Task: Generate Implementation Tasks
 
 ### Prerequisites & Context Loading
-- If invoked with `-y` flag ({{auto_approve}} == "-y"): Auto-approve requirements and design in `spec.json`
+- If invoked with `-y` flag ($2 == "-y"): Auto-approve requirements and design in `spec.json`
 - Otherwise: Stop if requirements/design missing or unapproved with message:
   "Run `/kiro:spec-requirements` and `/kiro:spec-design` first, or use `-y` flag to auto-approve"
 - If tasks.md exists: Prompt [o]verwrite/[m]erge/[c]ancel
 
 **Context Loading (Full Paths)**:
-1. `.kiro/specs/{{feature_name}}/requirements.md` - Feature requirements (EARS format)
-2. `.kiro/specs/{{feature_name}}/design.md` - Technical design document
+1. `.kiro/specs/$1/requirements.md` - Feature requirements (EARS format)
+2. `.kiro/specs/$1/design.md` - Technical design document
 3. `.kiro/steering/` - Project-wide guidelines and constraints:
    - **Core files (always load)**:
      - @.kiro/steering/product.md - Business context, product vision, user needs
@@ -30,7 +28,7 @@ Generate detailed implementation tasks for feature: **{{feature_name}}**
      - Any additional `*.md` files in `.kiro/steering/` directory
      - Examples: `api.md`, `testing.md`, `security.md`, etc.
    - (Task planning benefits from comprehensive context)
-4. `.kiro/specs/{{feature_name}}/tasks.md` - Existing tasks (only if merge mode)
+4. `.kiro/specs/$1/tasks.md` - Existing tasks (only if merge mode)
 
 ### CRITICAL Task Numbering Rules (MUST FOLLOW)
 
@@ -113,10 +111,10 @@ Generate detailed implementation tasks for feature: **{{feature_name}}**
 - No requirement should be left without corresponding tasks
 
 ### Document Generation
-- Generate `.kiro/specs/{{feature_name}}/tasks.md` using the exact numbering format above
+- Generate `.kiro/specs/$1/tasks.md` using the exact numbering format above
 - **Language**: Use language from `spec.json.language` field, default to English
 - **Task descriptions**: Use natural language for "what to do" (implementation details in design.md)
- - Update `.kiro/specs/{{feature_name}}/spec.json`:
+ - Update `.kiro/specs/$1/spec.json`:
   - Set `phase: "tasks-generated"`
   - Set approvals map exactly as:
     - `approvals.tasks = { "generated": true, "approved": false }`
@@ -146,16 +144,16 @@ Tasks represent the final planning phase - implementation can begin once tasks a
 **Final approval process for implementation**:
 ```
 📋 Tasks review completed. Ready for implementation.
-📄 Generated: .kiro/specs/{{feature_name}}/tasks.md
+📄 Generated: .kiro/specs/$1/tasks.md
 ✅ All phases approved. Implementation can now begin.
 ```
 
 ### Next Steps: Implementation
 Once tasks are approved, start implementation:
 ```bash
-/kiro:spec-impl {{feature_name}}          # Execute all pending tasks
-/kiro:spec-impl {{feature_name}} 1.1      # Execute specific task
-/kiro:spec-impl {{feature_name}} 1,2,3    # Execute multiple tasks
+/kiro:spec-impl $1          # Execute all pending tasks
+/kiro:spec-impl $1 1.1      # Execute specific task
+/kiro:spec-impl $1 1,2,3    # Execute multiple tasks
 ```
 
 **Implementation Tips**:

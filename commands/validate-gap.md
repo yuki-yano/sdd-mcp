@@ -2,13 +2,11 @@
 description: Analyze implementation gap between requirements and existing codebase
 allowed-tools: Bash, Glob, Grep, Read, Task
 argument-hint: <feature-name>
-version: 1.0.0
-source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Implementation Gap Validation
 
-Analyze implementation requirements and existing codebase for feature: **{{feature_name}}**
+Analyze implementation requirements and existing codebase for feature: **$1**
 Specified what to analyze: **$2**
 
 ## Context Validation
@@ -20,15 +18,15 @@ Specified what to analyze: **$2**
 - Custom steering: Load all "Always" mode custom steering files from `.kiro/steering/`
 
 ### Existing Spec Context
-- Current spec directory: !`ls -la .kiro/specs/{{feature_name}}/ 2>/dev/null || echo "No spec directory found"`
-- Requirements document: @.kiro/specs/{{feature_name}}/requirements.md
-- Spec metadata: @.kiro/specs/{{feature_name}}/spec.json
+- Current spec directory: !`ls -la .kiro/specs/$1/ 2>/dev/null || echo "No spec directory found"`
+- Requirements document: @.kiro/specs/$1/requirements.md
+- Spec metadata: @.kiro/specs/$1/spec.json
 
 ## Task: Implementation Gap Analysis
 
 ### Prerequisites
-- Requirements document must exist: `.kiro/specs/{{feature_name}}/requirements.md`
-- If not exist, stop with message: "Run `/kiro:spec-requirements {{feature_name}}` first to generate requirements"
+- Requirements document must exist: `.kiro/specs/$1/requirements.md`
+- If not exist, stop with message: "Run `/kiro:spec-requirements $1` first to generate requirements"
 
 ### Analysis Process
 
@@ -103,7 +101,7 @@ Specified what to analyze: **$2**
 
 ### Output Format
 
-Generate analysis in the language specified in spec.json (check `.kiro/specs/{{feature_name}}/spec.json` for "language" field):
+Generate analysis in the language specified in spec.json (check `.kiro/specs/$1/spec.json` for "language" field):
 
 #### Analysis Summary
 - Feature scope and complexity overview
@@ -153,7 +151,7 @@ For each viable approach:
 After validation, proceed to design phase:
 
 **Generate design based on analysis:**
-Run `/kiro:spec-design {{feature_name}}` to create technical design document
+Run `/kiro:spec-design $1` to create technical design document
 
 **Auto-approve and proceed:**  
-Run `/kiro:spec-design {{feature_name}} -y` to auto-approve requirements and generate design directly
+Run `/kiro:spec-design $1 -y` to auto-approve requirements and generate design directly

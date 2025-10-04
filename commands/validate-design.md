@@ -2,24 +2,22 @@
 description: Interactive technical design quality review and validation
 allowed-tools: Bash, Glob, Grep, Read, Task, WebFetch, WebSearch
 argument-hint: <feature-name>
-version: 1.0.0
-source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Technical Design Validation
 
-Interactive design quality review for feature: **{{feature_name}}**
+Interactive design quality review for feature: **$1**
 
 ## Context Loading
 
 ### Prerequisites Validation
-- Design document must exist: `.kiro/specs/{{feature_name}}/design.md`
-- If not exist, stop with message: "Run `/kiro:spec-design {{feature_name}}` first to generate design document"
+- Design document must exist: `.kiro/specs/$1/design.md`
+- If not exist, stop with message: "Run `/kiro:spec-design $1` first to generate design document"
 
 ### Review Context
-- Spec metadata: @.kiro/specs/{{feature_name}}/spec.json
-- Requirements document: @.kiro/specs/{{feature_name}}/requirements.md
-- Design document: @.kiro/specs/{{feature_name}}/design.md
+- Spec metadata: @.kiro/specs/$1/spec.json
+- Requirements document: @.kiro/specs/$1/requirements.md
+- Design document: @.kiro/specs/$1/design.md
 - Core steering documents:
   - Architecture: @.kiro/steering/structure.md
   - Technology: @.kiro/steering/tech.md
@@ -123,7 +121,7 @@ Acknowledge 1-2 strong aspects of the design to maintain balanced feedback.
 
 ### Output Format
 
-Generate review in the language specified in spec.json (check `.kiro/specs/{{feature_name}}/spec.json` for "language" field):
+Generate review in the language specified in spec.json (check `.kiro/specs/$1/spec.json` for "language" field):
 
 #### Design Review Summary
 Brief overview of the design's overall quality and readiness.
@@ -176,7 +174,7 @@ Engage in dialogue about:
 After design validation:
 
 **If design passes validation (GO decision):**
-Run `/kiro:spec-tasks {{feature_name}}` to generate implementation tasks
+Run `/kiro:spec-tasks $1` to generate implementation tasks
 
 **Auto-approve and proceed:**
-Run `/kiro:spec-tasks {{feature_name}} -y` to auto-approve requirements and design, then generate tasks directly
+Run `/kiro:spec-tasks $1 -y` to auto-approve requirements and design, then generate tasks directly

@@ -2,22 +2,20 @@
 description: Initialize a new specification with detailed project description and requirements
 allowed-tools: Bash, Read, Write, Glob
 argument-hint: <project-description>
-version: 1.0.0
-source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Spec Initialization
 
 Initialize a new specification based on the provided project description:
 
-**Project Description**: {{project_description}}
+**Project Description**: $ARGUMENTS
 
 ## Task: Initialize Specification Structure
 
 **SCOPE**: This command initializes the directory structure and metadata based on the detailed project description provided.
 
 ### 1. Generate Feature Name
-Create a concise, descriptive feature name from the project description ({{project_description}}).
+Create a concise, descriptive feature name from the project description ($ARGUMENTS).
 **Check existing `.kiro/specs/` directory to ensure the generated feature name is unique. If a conflict exists, append a number suffix (e.g., feature-name-2).**
 
 ### 2. Create Spec Directory
@@ -60,7 +58,7 @@ Create requirements.md with project description:
 # Requirements Document
 
 ## Project Description (Input)
-{{project_description}}
+$ARGUMENTS
 
 ## Requirements
 <!-- Will be generated in /kiro:spec-requirements phase -->

@@ -1,20 +1,18 @@
 ---
-description: Create comprehensive technical design for a specification
+description: Create comprehensive technical design for a specification  
 allowed-tools: Bash, Glob, Grep, LS, Read, Write, Edit, MultiEdit, Update, WebSearch, WebFetch
 argument-hint: <feature-name> [-y]
-version: 1.0.0
-source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Technical Design
 
-Generate a **technical design document** for feature **{{feature_name}}**.
+Generate a **technical design document** for feature **$1**.
 
 ## Task: Create Technical Design Document
 
 ### 1. Prerequisites & File Handling
 - **Requirements Approval Check**: 
-  - If invoked with `-y` ({{auto_approve}} == "-y"), set `requirements.approved=true` in `spec.json`
+  - If invoked with `-y` ($2 == "-y"), set `requirements.approved=true` in `spec.json`
   - Otherwise, **stop** with an actionable message if requirements are missing or unapproved
 - **Design File Handling**:
   - If design.md does not exist: Create new design.md file
@@ -22,7 +20,7 @@ Generate a **technical design document** for feature **{{feature_name}}**.
     - **[o] Overwrite**: Generate completely new design document
     - **[m] Merge**: Generate new design document using existing content as reference context  
     - **[c] Cancel**: Stop execution for manual review
-- **Context Loading**: Read `.kiro/specs/{{feature_name}}/requirements.md`, core steering documents, and existing design.md (if merge mode)
+- **Context Loading**: Read `.kiro/specs/$1/requirements.md`, core steering documents, and existing design.md (if merge mode)
 
 ### 2. Discovery & Analysis Phase
 
@@ -435,7 +433,7 @@ Error tracking, logging, and health monitoring implementation.
 
 ### 3. Design Document Generation & Metadata Update
 - Generate complete design document following structure guidelines
-- Update `.kiro/specs/{{feature_name}}/spec.json`:
+- Update `.kiro/specs/$1/spec.json`:
 ```json
 {
   "phase": "design-generated", 
@@ -448,14 +446,14 @@ Error tracking, logging, and health monitoring implementation.
 ```
 
 ### Actionable Messages
-If requirements are not approved and no `-y` flag ({{auto_approve}} != "-y"):
-- **Error Message**: "Requirements must be approved before generating design. Run `/kiro:spec-requirements {{feature_name}}` to review requirements, then run `/kiro:spec-design {{feature_name}} -y` to proceed."
-- **Alternative**: "Or run `/kiro:spec-design {{feature_name}} -y` to auto-approve requirements and generate design."
+If requirements are not approved and no `-y` flag ($2 != "-y"):
+- **Error Message**: "Requirements must be approved before generating design. Run `/kiro:spec-requirements $1` to review requirements, then run `/kiro:spec-design $1 -y` to proceed."
+- **Alternative**: "Or run `/kiro:spec-design $1 -y` to auto-approve requirements and generate design."
 
 ### Conversation Guidance
 After generation:
 - Guide user to review design narrative and visualizations
 - Suggest specific diagram additions if needed
-- Direct to run `/kiro:spec-tasks {{feature_name}} -y` when approved
+- Direct to run `/kiro:spec-tasks $1 -y` when approved
 
 Create design document that tells complete story through clear narrative, structured components, and effective visualizations. think deeply

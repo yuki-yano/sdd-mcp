@@ -2,22 +2,20 @@
 description: Execute spec tasks using TDD methodology
 allowed-tools: Bash, Read, Write, Edit, MultiEdit, Grep, Glob, LS, WebFetch, WebSearch
 argument-hint: <feature-name> [task-numbers]
-version: 1.0.0
-source: Based on cc-sdd (https://github.com/gotalab/cc-sdd) - MIT License
 ---
 
 # Execute Spec Tasks with TDD
 
-Execute implementation tasks for **{{feature_name}}** using Kent Beck's Test-Driven Development methodology.
+Execute implementation tasks for **$1** using Kent Beck's Test-Driven Development methodology.
 
 ## Instructions
 
 ### Pre-Execution Validation
-Validate required files exist for feature **{{feature_name}}**:
-- Requirements: `.kiro/specs/{{feature_name}}/requirements.md`
-- Design: `.kiro/specs/{{feature_name}}/design.md`  
-- Tasks: `.kiro/specs/{{feature_name}}/tasks.md`
-- Metadata: `.kiro/specs/{{feature_name}}/spec.json`
+Validate required files exist for feature **$1**:
+- Requirements: `.kiro/specs/$1/requirements.md`
+- Design: `.kiro/specs/$1/design.md`  
+- Tasks: `.kiro/specs/$1/tasks.md`
+- Metadata: `.kiro/specs/$1/spec.json`
 
 ### Context Loading
 
@@ -29,15 +27,15 @@ Validate required files exist for feature **{{feature_name}}**:
 **Custom Steering:**
 - Additional `*.md` files in `.kiro/steering/` (excluding structure.md, tech.md, product.md)
 
-**Spec Documents for {{feature_name}}:**
-- Metadata: @.kiro/specs/{{feature_name}}/spec.json
-- Requirements: @.kiro/specs/{{feature_name}}/requirements.md
-- Design: @.kiro/specs/{{feature_name}}/design.md
-- Tasks: @.kiro/specs/{{feature_name}}/tasks.md
+**Spec Documents for $1:**
+- Metadata: @.kiro/specs/$1/spec.json
+- Requirements: @.kiro/specs/$1/requirements.md
+- Design: @.kiro/specs/$1/design.md
+- Tasks: @.kiro/specs/$1/tasks.md
 
 ### Task Execution
-1. **Feature**: {{feature_name}}  
-2. **Task numbers**: {{task_numbers}} (optional, defaults to all pending tasks)
+1. **Feature**: $1  
+2. **Task numbers**: $2 (optional, defaults to all pending tasks)
 3. **Load all context** (steering + spec documents)
 4. **Execute selected tasks** using TDD methodology
 
@@ -57,8 +55,8 @@ For each selected task:
 
 ## Implementation Notes
 
-- **Feature**: Use `{{feature_name}}` for feature name
-- **Tasks**: Use `{{task_numbers}}` for specific task numbers (optional)
+- **Feature**: Use `$1` for feature name
+- **Tasks**: Use `$2` for specific task numbers (optional)
 - **Validation**: Check all required spec files exist
 - **TDD Focus**: Always write tests before implementation
 - **Task Tracking**: Update checkboxes in tasks.md as completed
