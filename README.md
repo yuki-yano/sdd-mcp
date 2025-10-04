@@ -194,6 +194,17 @@ bunx sdd-mcp@latest --version
 bunx sdd-mcp@latest --debug
 ```
 
+## Global Agent Guidance (Codex / Claude Code)
+
+If you maintain global instruction files for Codex or Claude Code agents (for example `~/.codex/AGENTS.md`), include the following guidance so the assistants reliably choose sdd-mcp tools:
+
+- Map any request about "spec", "impl", or "sdd" to the matching MCP tool instead of free-form code generation.
+- Spell out the canonical workflow: `spec-init → spec-requirements → spec-design → spec-tasks → spec-impl`, and remind the agent to run `spec-status` before advancing phases.
+- Call out that steering documents (`steering`, `steering-custom`) should be refreshed whenever context feels stale, and that validate tools (`validate-design`, `validate-gap`) close the loop before shipping.
+- Provide ready-to-copy command examples such as `Use MCP tool: spec-impl {"feature_name":"<feature-name>"}` so the agent knows the exact invocation syntax.
+- Encourage reviewing the `.kiro/` directory for outputs and approvals after each phase to keep humans in control of the process.
+
+
 ## Development
 
 ### Install Dependencies

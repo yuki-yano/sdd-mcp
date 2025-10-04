@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises'
+import { dirname, isAbsolute, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { dirname, join, isAbsolute } from 'node:path'
+import { adaptTemplateForMCP } from './template-adapter.js'
 import type { ParsedTemplate } from './template-parser.js'
 import { parseFrontmatter } from './template-parser.js'
-import { adaptTemplateForMCP } from './template-adapter.js'
 
 export type TemplateMetadata = {
   id: string

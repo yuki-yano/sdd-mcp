@@ -9,7 +9,7 @@ import { renderTemplate } from '../template-renderer.js'
  * @param templateDir テンプレートディレクトリ（テスト用）
  * @returns ツール実行結果
  */
-export const handleSteering = async (input: SteeringInput, templateDir?: string): Promise<ToolResult> => {
+export const handleSteering = async (_input: SteeringInput, templateDir?: string): Promise<ToolResult> => {
   // 1. テンプレート読み込み
   const template = await loadTemplate('steering', templateDir)
 

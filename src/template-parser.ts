@@ -23,7 +23,14 @@ export const parseFrontmatter = (content: string): ParsedTemplate => {
     throw new Error('Invalid frontmatter format')
   }
 
-  const [, rawMeta, body] = match
+  const rawMeta = match[1]
+  const body = match[2]
+  if (!rawMeta) {
+    throw new Error('Missing frontmatter metadata')
+  }
+  if (body === undefined) {
+    throw new Error('Missing template body')
+  }
   const lines = rawMeta.split('\n').filter((line) => line.trim())
   const metadata: Record<string, string> = {}
 
@@ -37,12 +44,33 @@ export const parseFrontmatter = (content: string): ParsedTemplate => {
   }
 
   // versionフィールドのデフォルト値設定
-  if (!metadata.version) {
-    metadata.version = '1.0.0'
+  const description = metadata.description
+  if (!description) {
+    throw new Error('Missing required frontmatter field: description')
+  }
+
+  const allowedTools = metadata['allowed-tools']
+  if (!allowedTools) {
+    throw new Error('Missing required frontmatter field: allowed-tools')
+  }
+
+  const argumentHint = metadata['argument-hint']
+  if (!argumentHint) {
+    throw new Error('Missing required frontmatter field: argument-hint')
+  }
+
+  const version = metadata.version ?? '1.0.0'
+
+  const parsedMetadata: TemplateFrontmatter = {
+    ...metadata,
+    description,
+    'allowed-tools': allowedTools,
+    'argument-hint': argumentHint,
+    version,
   }
 
   return {
-    metadata: metadata as TemplateFrontmatter,
+    metadata: parsedMetadata,
     body,
   }
 }

@@ -5,6 +5,18 @@ import {
   ListToolsRequestSchema,
   type Tool,
 } from '@modelcontextprotocol/sdk/types.js'
+import type {
+  SpecDesignInput,
+  SpecImplInput,
+  SpecInitInput,
+  SpecRequirementsInput,
+  SpecStatusInput,
+  SpecTasksInput,
+  SteeringCustomInput,
+  SteeringInput,
+  ValidateDesignInput,
+  ValidateGapInput,
+} from './mcp-tools-types.js'
 import { handleSpecDesign } from './tools/spec-design.js'
 import { handleSpecImpl } from './tools/spec-impl.js'
 import { handleSpecInit } from './tools/spec-init.js'
@@ -22,7 +34,8 @@ import { handleValidateGap } from './tools/validate-gap.js'
 const TOOL_DEFINITIONS: Tool[] = [
   {
     name: 'spec-init',
-    description: '新しい仕様を初期化します。詳細なプロジェクト説明を提供してください。',
+    description:
+      'Initializes a new specification from a project description. Trigger this when the request says things like "start a spec", "init spec", or "set up this idea".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -36,7 +49,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'spec-requirements',
-    description: '仕様の要件定義ドキュメントを生成します。',
+    description:
+      'Generates the requirements document for a feature. Use this when someone asks to "write requirements", "document needs", or "define acceptance criteria".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -50,7 +64,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'spec-design',
-    description: '仕様の設計ドキュメントを生成します。',
+    description:
+      'Produces the design document from approved requirements. Call this when you hear "create the design", "plan implementation", or "move to the design phase".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -68,7 +83,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'spec-tasks',
-    description: '仕様のタスク分解を実行します。',
+    description:
+      'Breaks the design into actionable tasks. Run this when asked to "make tasks", "plan work items", or "enter task breakdown".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -86,7 +102,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'spec-impl',
-    description: 'TDD方式で仕様の実装を実行します。',
+    description:
+      'Executes the implementation with TDD. Use this when the user says "run impl", "do the implementation phase", or "start coding tasks".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -107,7 +124,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'spec-status',
-    description: '仕様の現在のステータスと進捗を確認します。',
+    description:
+      'Reports the current specification status. Call this when someone says "show spec status", "check approvals", or "where are we in the workflow".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -121,7 +139,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'steering',
-    description: 'ステアリングドキュメントを作成または更新します。',
+    description:
+      'Creates or refreshes the core steering documents. Use this when a request mentions "update steering docs", "refresh product context", or "set project direction".',
     inputSchema: {
       type: 'object',
       properties: {},
@@ -129,7 +148,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'steering-custom',
-    description: '特殊なプロジェクトコンテキスト用のカスタムステアリングドキュメントを作成します。',
+    description:
+      'Creates custom steering documents for special contexts. Trigger this when you hear "add custom steering", "document edge-case guidance", or "provide conditional context".',
     inputSchema: {
       type: 'object',
       properties: {},
@@ -137,7 +157,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'validate-design',
-    description: '設計ドキュメントの品質をインタラクティブにレビューします。',
+    description:
+      'Reviews a design document for quality gaps. Use this when asked to "review the design", "validate the architecture", or "double-check the design spec".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -151,7 +172,8 @@ const TOOL_DEFINITIONS: Tool[] = [
   },
   {
     name: 'validate-gap',
-    description: '要件と既存コードベース間の実装ギャップを分析します。',
+    description:
+      'Analyzes gaps between requirements and the codebase. Call this when someone says "check implementation gaps", "compare code to requirements", or "ensure nothing is missing".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -168,17 +190,23 @@ const TOOL_DEFINITIONS: Tool[] = [
 /**
  * ツールハンドラーマップ
  */
+const wrapHandler = <T>(
+  handler: (input: T, templateDir?: string) => Promise<unknown>,
+): ((input: unknown) => Promise<unknown>) => {
+  return (input: unknown) => handler(input as T)
+}
+
 const TOOL_HANDLERS: Record<string, (input: unknown) => Promise<unknown>> = {
-  'spec-init': handleSpecInit,
-  'spec-requirements': handleSpecRequirements,
-  'spec-design': handleSpecDesign,
-  'spec-tasks': handleSpecTasks,
-  'spec-impl': handleSpecImpl,
-  'spec-status': handleSpecStatus,
-  steering: handleSteering,
-  'steering-custom': handleSteeringCustom,
-  'validate-design': handleValidateDesign,
-  'validate-gap': handleValidateGap,
+  'spec-init': wrapHandler<SpecInitInput>(handleSpecInit),
+  'spec-requirements': wrapHandler<SpecRequirementsInput>(handleSpecRequirements),
+  'spec-design': wrapHandler<SpecDesignInput>(handleSpecDesign),
+  'spec-tasks': wrapHandler<SpecTasksInput>(handleSpecTasks),
+  'spec-impl': wrapHandler<SpecImplInput>(handleSpecImpl),
+  'spec-status': wrapHandler<SpecStatusInput>(handleSpecStatus),
+  steering: wrapHandler<SteeringInput>(handleSteering),
+  'steering-custom': wrapHandler<SteeringCustomInput>(handleSteeringCustom),
+  'validate-design': wrapHandler<ValidateDesignInput>(handleValidateDesign),
+  'validate-gap': wrapHandler<ValidateGapInput>(handleValidateGap),
 }
 
 /**

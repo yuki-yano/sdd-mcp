@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
-import { createServer } from './server.js'
 import packageJson from '../package.json' with { type: 'json' }
+import { createServer } from './server.js'
 
 /**
  * Parse command-line arguments
