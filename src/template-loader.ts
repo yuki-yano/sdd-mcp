@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url'
+import { dirname, join, isAbsolute } from 'node:path'
 import type { ParsedTemplate } from './template-parser.js'
 import { parseFrontmatter } from './template-parser.js'
 
@@ -23,7 +25,19 @@ export type LoadedTemplate = {
  * @throws {Error} ファイルが存在しない、または読み込み/パースに失敗した場合
  */
 export const loadTemplate = async (templateId: string, templateDir = 'commands'): Promise<LoadedTemplate> => {
-  const filePath = `${templateDir}/${templateId}.md`
+  // templateDirが絶対パスの場合はそのまま使用、相対パスの場合はパッケージルートからの絶対パスを構築
+  let resolvedTemplateDir: string
+  if (isAbsolute(templateDir)) {
+    resolvedTemplateDir = templateDir
+  } else {
+    // bunx実行時にもテンプレートを見つけられるように、パッケージルートからの絶対パスを構築
+    const __filename = fileURLToPath(import.meta.url)
+    const __dirname = dirname(__filename)
+    const packageRoot = join(__dirname, '..') // dist から一つ上がパッケージルート
+    resolvedTemplateDir = join(packageRoot, templateDir)
+  }
+
+  const filePath = join(resolvedTemplateDir, `${templateId}.md`)
 
   // ファイル読み込み
   let content: string
