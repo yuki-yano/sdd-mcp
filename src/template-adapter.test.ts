@@ -57,6 +57,56 @@ describe('adaptTemplateForMCP', () => {
     expect(adaptTemplateForMCP(input)).toBe(input)
   })
 
+  describe('位置引数プレースホルダ変換', () => {
+    it('spec-requirements: $1 を {{feature_name}} に変換する', () => {
+      const input = 'Generate requirements for $1 feature'
+      const expected = 'Generate requirements for {{feature_name}} feature'
+
+      expect(adaptTemplateForMCP(input, 'spec-requirements')).toBe(expected)
+    })
+
+    it('spec-design: $1 と $2 を変換する', () => {
+      const input = 'Design $1 with auto_approve=$2'
+      const expected = 'Design {{feature_name}} with auto_approve={{auto_approve}}'
+
+      expect(adaptTemplateForMCP(input, 'spec-design')).toBe(expected)
+    })
+
+    it('spec-init: $ARGUMENTS を {{project_description}} に変換する', () => {
+      const input = 'Initialize project: $ARGUMENTS'
+      const expected = 'Initialize project: {{project_description}}'
+
+      expect(adaptTemplateForMCP(input, 'spec-init')).toBe(expected)
+    })
+
+    it('$10 のような複数桁の位置引数は変換しない', () => {
+      const input = 'Use $1 and $10 and $11'
+      const expected = 'Use {{feature_name}} and $10 and $11'
+
+      expect(adaptTemplateForMCP(input, 'spec-requirements')).toBe(expected)
+    })
+
+    it('マッピングにないtemplateIdの場合は位置引数を変換しない', () => {
+      const input = 'This is $1 and $2'
+
+      expect(adaptTemplateForMCP(input, 'unknown-template')).toBe(input)
+    })
+
+    it('templateIdが空の場合は位置引数を変換しない', () => {
+      const input = 'This is $1 and $2'
+
+      expect(adaptTemplateForMCP(input, '')).toBe(input)
+      expect(adaptTemplateForMCP(input)).toBe(input)
+    })
+
+    it('位置引数変換と/kiro:変換を同時に行う', () => {
+      const input = 'Run `/kiro:spec-design $1 -y` to proceed'
+      const expected = 'Run spec-design ツールを実行 {{feature_name}} -y to proceed'
+
+      expect(adaptTemplateForMCP(input, 'spec-design')).toBe(expected)
+    })
+  })
+
   it('実際のテンプレートパターンを変換する', () => {
     const input = `## Next Steps After Initialization
 

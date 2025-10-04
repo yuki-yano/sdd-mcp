@@ -70,6 +70,6 @@ export const loadTemplate = async (templateId: string, templateDir = 'commands')
 
   return {
     metadata,
-    body: adaptTemplateForMCP(parsed.body),
+    body: adaptTemplateForMCP(parsed.body, templateId),
   }
 }
