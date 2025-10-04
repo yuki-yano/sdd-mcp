@@ -1,6 +1,6 @@
 {
   "name": "sdd-mcp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Spec-Driven Development MCP Server - An MCP server that provides spec-driven development custom slash commands as MCP tools",
   "author": "Yuki Yano",
   "license": "MIT",
