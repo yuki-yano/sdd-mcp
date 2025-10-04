@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join, isAbsolute } from 'node:path'
 import type { ParsedTemplate } from './template-parser.js'
 import { parseFrontmatter } from './template-parser.js'
+import { adaptTemplateForMCP } from './template-adapter.js'
 
 export type TemplateMetadata = {
   id: string
@@ -69,6 +70,6 @@ export const loadTemplate = async (templateId: string, templateDir = 'commands')
 
   return {
     metadata,
-    body: parsed.body,
+    body: adaptTemplateForMCP(parsed.body),
   }
 }
