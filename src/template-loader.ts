@@ -65,7 +65,7 @@ export const loadTemplate = async (templateId: string, templateDir = 'commands')
       .split(',')
       .map((s) => s.trim())
       .filter((s) => s.length > 0),
-    argumentHint: parsed.metadata['argument-hint'],
+    argumentHint: parsed.metadata['argument-hint'] ?? '',
   }
 
   return {

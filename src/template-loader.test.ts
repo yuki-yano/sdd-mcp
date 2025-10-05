@@ -85,6 +85,21 @@ Body`
     expect(result.metadata.allowedTools).toEqual(['Bash', 'Read', 'Write', 'Glob', 'Grep'])
   })
 
+  it('argument-hintフィールドがなくても読み込める', async () => {
+    const templateContent = `---
+description: Test
+allowed-tools: Read
+---
+
+Body`
+
+    await writeFile(`${TEST_TEMPLATE_DIR}/no-arg-hint.md`, templateContent)
+
+    const result = await loadTemplate('no-arg-hint', TEST_TEMPLATE_DIR)
+
+    expect(result.metadata.argumentHint).toBe('')
+  })
+
   it('versionフィールドが未指定の場合デフォルト値を使用する', async () => {
     const templateContent = `---
 description: Test

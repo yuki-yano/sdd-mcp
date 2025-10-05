@@ -1,7 +1,7 @@
 export type TemplateFrontmatter = {
   description: string
   'allowed-tools': string
-  'argument-hint': string
+  'argument-hint'?: string
   version?: string
   [key: string]: string | undefined
 }
@@ -43,7 +43,7 @@ export const parseFrontmatter = (content: string): ParsedTemplate => {
     metadata[key] = value
   }
 
-  // Set the default value for the version field.
+  // Set defaults for optional frontmatter fields.
   const description = metadata.description
   if (!description) {
     throw new Error('Missing required frontmatter field: description')
@@ -55,17 +55,13 @@ export const parseFrontmatter = (content: string): ParsedTemplate => {
   }
 
   const argumentHint = metadata['argument-hint']
-  if (!argumentHint) {
-    throw new Error('Missing required frontmatter field: argument-hint')
-  }
-
   const version = metadata.version ?? '1.0.0'
 
   const parsedMetadata: TemplateFrontmatter = {
     ...metadata,
     description,
     'allowed-tools': allowedTools,
-    'argument-hint': argumentHint,
+    ...(argumentHint !== undefined && { 'argument-hint': argumentHint }),
     version,
   }
 
